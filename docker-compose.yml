@@ -1,0 +1,22 @@
+services:
+  # Your Next.js App
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - REDIS_URL=redis://cache:6379
+    depends_on:
+      - cache
+
+  # Your Redis Cache
+  cache:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  # Your Database (if self-hosting Supabase/Postgres)
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: password123
